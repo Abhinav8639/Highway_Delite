@@ -1,77 +1,88 @@
-BookIt: Experiences & Slots
+# Highway Delite — Experiences & Slot Booking
 
-Hey there! This is my take on the Fullstack Intern Assignment – a booking app where you can browse cool travel experiences, pick a date and time slot, fill in your deets, snag a promo if you're lucky, and boom, book it. I had a blast building this, especially nailing the Figma designs on mobile (those grids were a pain at first). Check out the Figma here – I stuck pretty close to it for colors, spacing, and all that jazz.
+Hi — this is my Full-Stack intern assignment: a small booking app where users browse curated travel experiences, pick a date + time slot, apply a promo, and book. I built the UI from my Figma designs and implemented a simple backend to make bookings actually work.
+
+
 <img width="1912" height="1030" alt="image" src="https://github.com/user-attachments/assets/8c6511e6-8601-4098-8be1-4f71ff527d02" />
 <img width="1919" height="1013" alt="image" src="https://github.com/user-attachments/assets/a4ad84ac-21f3-45a6-8857-05135da4777a" />
 <img width="1919" height="1040" alt="image" src="https://github.com/user-attachments/assets/319b69e8-1221-4583-97fc-daf7e92ce439" />
 
 
-What's the Deal?
-The goal was a smooth end-to-end flow: Spot something fun on the home page, dive into details, book a slot without headaches, and get that sweet confirmation. I threw in real validation like checking if a slot's full (no double-books!) and promo codes that actually discount your total. Taxes? Yeah, 6% GST snuck in there too.
-It feels snappy on phone, tablet, or desktop – Tailwind made that easy. Data's dynamic: Pulled from the DB, with Unsplash pics for that pro look.
+## Quick summary
+- Browse experiences (kayaking, stargazing, etc.)  
+- Pick a date and a time slot (slots are capacity-limited)  
+- Apply promo codes (try `SAVE10`) and see GST applied  
+- Book and get a booking reference on success  
+- Responsive UI — works on phone, tablet, and desktop
 
-Tech I Used
-Frontend
+---
 
-React + TypeScript on Vite (quick hot reloads saved my sanity).
-TailwindCSS for styling – matched Figma's yellow buttons and clean cards spot-on.
-Hooks for state (useState/useEffect – nothing fancy like Redux).
-Fetch for API calls (kept it vanilla).
+## Why I built it this way
+I wanted a clean end-to-end flow that felt real: dynamic data, slot availability checks, server-side validation, and a tidy booking confirmation. The goal was to match the Figma layout closely while keeping the code simple and readable.
 
-Backend
+---
 
-Node/Express – just a lightweight server for the APIs.
-Supabase for the Postgres DB (love how it handles everything without hassle).
-Threw in some checks like unique booking refs and slot updates.
+## Tech stack
+**Frontend:** React + TypeScript (Vite), TailwindCSS  
+**Backend:** Node + Express  
+**Database:** Supabase (Postgres)  
+**Hosting:** Frontend on Vercel, Backend on Render, DB on Supabase
 
-Deployment
+(Figma link: _paste your Figma URL here_)
 
-Frontend on Vercel (one-click from GitHub).
-Backend on Render (free tier works great).
-DB lives on Supabase – no local setup nightmares.
+---
 
-How It Flows
+## What’s included
+- 11 sample experiences + many sample slots (some full, some partial)  
+- Promo validation endpoint (`/promo/validate`)  
+- Booking endpoint (`/bookings`) that updates slot counts and returns a unique ref  
+- Search on home, detail view with images, checkout flow with form validation
 
-Home: Scroll through experiences, search by name or spot. Click "View Details" to jump in.
-Details: Big hero image, description, "About" section. Pick a date (shows upcoming ones), then times (multiple per day now – mornings, afternoons, evenings). Adjust quantity, see the price breakdown, hit "Confirm".
-Checkout: Quick form for name/email, promo box (try SAVE10 for 10% off). Checkbox for terms, then "Pay and Confirm" – it validates everything server-side.
-Confirmation: Green checkmark, your booking ref, and a nudge to explore more.
+---
 
-The whole thing's responsive – stacks nicely on mobile, grids out on bigger screens. Loading states, errors (like "Invalid promo!"), and sold-out badges keep it user-friendly.
-Quick API Rundown (what the backend handles):
+## API overview
+| Method | Endpoint | Notes |
+|--------|----------|-------|
+| GET | `/experiences` | List experiences |
+| GET | `/experiences/:id` | Experience details + upcoming slots |
+| POST | `/promo/validate` | Returns discount if code is valid |
+| POST | `/bookings` | Creates a booking, updates slot counts |
 
-WhatEndpointDoesList experiencesGET /experiencesGrabs all with latest first.Details + slotsGET /experiences/:idExperience deets plus future slots (filters old dates).Promo checkPOST /promo/validateTakes code + subtotal, spits back discount (or "nah").Book itPOST /bookingsValidates slot, saves booking, bumps the booked count.
-Got 11 experiences loaded up (kayaking to stargazing) with 50+ slots – some half-full, some sold out for that real feel.
-Getting It Running (Took Me 10 Mins)
-First, the DB (Supabase)
+---
 
-Head to supabase.com, make a free project.
-In the SQL Editor, paste and run these one by one:
+## Run locally (quick)
+### 1. Supabase
+- Create a free Supabase project and run the SQL files in `/db` (schema + sample data).
+- Get the `PROJECT_URL` and `SERVICE_ROLE_KEY`.
 
-Tables: schema.sql (sets up experiences, slots, etc.).
-Basics: sample-data.sql.
-More fun: more-experiences.sql.
-Slots galore: more-slots.sql (multiple times per date!).
-
-
-Grab your Project URL and Service Role Key from Settings > API.
-
-Backend
-
+### 2. Backend
+```bash
 cd backend
-npm install (quick).
-.env file:
-textSUPABASE_URL=your_project_url_here
-SUPABASE_SERVICE_KEY=that_long_key
+npm install
+
+
+Create a .env (example):
+
+SUPABASE_URL=your_supabase_url
+SUPABASE_SERVICE_KEY=your_service_key
 PORT=3001
 FRONTEND_URL=http://localhost:5173
 
-npm run dev – fires up on localhost:3001. Test with /experiences in browser.
 
-Frontend
+Run:
 
-Back to root: npm install.
-.env:
-textVITE_API_URL=http://localhost:3001
+npm run dev
 
-npm run dev – off to localhost:5173. Search, book, done.
+3. Frontend
+cd frontend
+npm install
+
+
+Create .env:
+
+VITE_API_URL=http://localhost:3001
+
+
+Run:
+
+npm run dev
