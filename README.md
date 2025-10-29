@@ -56,33 +56,19 @@ I wanted a clean end-to-end flow that felt real: dynamic data, slot availability
 - Get the `PROJECT_URL` and `SERVICE_ROLE_KEY`.
 
 ### 2. Backend
-```bash
 cd backend
+
 npm install
 
+node server.js
 
-Create a .env (example):
+### 3. frontend
 
-SUPABASE_URL=your_supabase_url
-SUPABASE_SERVICE_KEY=your_service_key
-PORT=3001
-FRONTEND_URL=http://localhost:5173
-
-
-Run:
-
-npm run dev
-
-3. Frontend
 cd frontend
+
 npm install
 
-
-Create .env:
-
-VITE_API_URL=http://localhost:3001
-
-
-Run:
-
 npm run dev
+
+
+
