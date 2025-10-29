@@ -1,4 +1,5 @@
 BookIt: Experiences & Slots
+
 Hey there! This is my take on the Fullstack Intern Assignment – a booking app where you can browse cool travel experiences, pick a date and time slot, fill in your deets, snag a promo if you're lucky, and boom, book it. I had a blast building this, especially nailing the Figma designs on mobile (those grids were a pain at first). Check out the Figma here – I stuck pretty close to it for colors, spacing, and all that jazz.
 <img width="1912" height="1030" alt="image" src="https://github.com/user-attachments/assets/8c6511e6-8601-4098-8be1-4f71ff527d02" />
 <img width="1919" height="1013" alt="image" src="https://github.com/user-attachments/assets/a4ad84ac-21f3-45a6-8857-05135da4777a" />
